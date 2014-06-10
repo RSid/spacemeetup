@@ -1,5 +1,32 @@
+<h1><%= @title %></h1>
+
 <p><%= @meetup.name %></p>
+<p><%= @meetup.description %></p>
+
+<% if @events[0] != nil %>
+  <% @events.each do |event| %>
+    <ul>
+      <li><%= event.description %></li>
+    </ul>
+  <% end %>
+<% end %>
 
 <form action = <%= "/meetup/#{@meetup.id}" %> method = 'post'>
   <input type = "submit" value = "Join">
+</form>
+
+
+<p>Create new meetup event: </p>
+
+<form action = <%= "/meetup/event/#{@meetup.id}" %> method="post">
+  <label for = "date">Meetup date: </label>
+  <input type = "text" name = "date" id = "date" />
+  <br><br>
+  <label for = "location">Meetup location: </label>
+  <input type = "text" name = "location" id = "location" />
+  <br><br>
+  <label for = "description">Meetup description: </label>
+  <input type = "text" name = "description" id = "description" />
+  <br>
+  <input type = "submit" value = "Submit">
 </form>

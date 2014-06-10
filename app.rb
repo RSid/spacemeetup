@@ -35,7 +35,7 @@ def authenticate!
 end
 
 get '/' do
-  @meetups = Meetup.all
+  @meetups = Meetup.all.order(:name)
   @my_meetups = UserMeetup.all
   binding.pry
 
@@ -48,6 +48,7 @@ post '/' do
 
   if signed_in?
     new_meetup = Meetup.create(name: name, description: description)
+    flash[:notice] = "You have successfully created a meetup!"
   else
     authenticate!
   end
@@ -57,15 +58,39 @@ end
 
 get '/meetup/:id' do
   @meetup = Meetup.find(params[:id])
+  @events = (@meetup.event).to_a
+  binding.pry
   erb :meetup
 end
 
 post '/meetup/:id' do
   meetup_id = params[:id]
-  binding.pry
-  UserMeetup.create(user_id: session[:user_id], meetup_id: meetup_id)
+
+  if signed_in?
+    UserMeetup.create(user_id: session[:user_id], meetup_id: meetup_id)
+    flash[:notice] = "You have successfully joined a meetup!"
+  else
+    authenticate!
+  end
 
   redirect '/'
+end
+
+post '/meetup/event/:meetup_id' do
+  location = params['location']
+  date = params['date']
+  description = params['description']
+  meetup_id = params[:meetup_id]
+
+  if signed_in?
+    Event.create(location: location, date: date, description: description, meetup_id: meetup_id)
+    flash[:notice] = "You have successfully created an event!"
+  else
+    authenticate!
+  end
+
+  redirect "/meetup/#{meetup_id}"
+
 end
 
 get '/auth/github/callback' do

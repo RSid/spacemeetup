@@ -2,7 +2,7 @@
 
 <p>My Meetups</p>
 <ul>
-  <% @my_meetups.each do |meetup| %>
+  <% @my_meetups.sort.each do |meetup| %>
   <li><%= "#{meetup.meetup.name}" %></a></li>
   <% end %>
 </ul>
