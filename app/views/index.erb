@@ -1,1 +1,21 @@
 <h1><%= @title %></h1>
+
+<p>Meetups: </p>
+<ul>
+<% @meetups.each do |meetup| %>
+  <li><a href = <%= "/meetup/#{meetup.id}" %> ><%= "#{meetup.name}: #{meetup.description}" %></a></li>
+<% end %>
+</ul>
+
+<br>
+
+<p>Create new meetup: </p>
+
+<form action = "/" method="post">
+  <label for = "name">Meetup Name: </label>
+  <input type = "text" name = "name" id = "name" />
+  <br><br>
+  <label for = "description">Meetup Description: </label>
+  <input type = "text" name = "description" id = "description" />
+  <input type = "submit" value = "Submit">
+</form>

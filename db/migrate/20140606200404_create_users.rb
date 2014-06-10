@@ -7,9 +7,11 @@ class CreateUsers < ActiveRecord::Migration
       table.string :email, null: false
       table.string :avatar_url, null: false
 
+
       table.timestamps
     end
 
     add_index :users, [:uid, :provider], unique: true
   end
+
 end
