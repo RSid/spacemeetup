@@ -45,9 +45,14 @@ end
 post '/' do
   name = params['name']
   description = params['description']
-  Meetup.create(name: name, description: description)
 
-  redirect '/'
+  if signed_in?
+    new_meetup = Meetup.create(name: name, description: description)
+  else
+    authenticate!
+  end
+
+  redirect "/meetup/#{new_meetup.id}"
 end
 
 get '/meetup/:id' do
