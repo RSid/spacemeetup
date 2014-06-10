@@ -1,1 +1,5 @@
 <p><%= @meetup.name %></p>
+
+<form action = <%= "/meetup/#{@meetup.id}" %> method = 'post'>
+  <input type = "submit" value = "Join">
+</form>

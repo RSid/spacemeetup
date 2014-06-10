@@ -7,6 +7,7 @@ require 'pry'
 require_relative 'config/application'
 require_relative 'app/models/meetup'
 require_relative 'app/models/user'
+require_relative 'app/models/usermeetup'
 
 Dir['app/**/*.rb'].each { |file| require_relative file }
 
@@ -34,6 +35,7 @@ end
 
 get '/' do
   @meetups = Meetup.all
+  @my_meetups = UserMeetup.all
   binding.pry
 
   erb :index
@@ -50,6 +52,14 @@ end
 get '/meetup/:id' do
   @meetup = Meetup.find(params[:id])
   erb :meetup
+end
+
+post '/meetup/:id' do
+  meetup_id = params[:id]
+  binding.pry
+  UserMeetup.create(user_id: session[:user_id], meetup_id: meetup_id)
+
+  redirect '/'
 end
 
 get '/auth/github/callback' do

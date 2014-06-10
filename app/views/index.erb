@@ -1,6 +1,13 @@
 <h1><%= @title %></h1>
 
-<p>Meetups: </p>
+<p>My Meetups</p>
+<ul>
+  <% @my_meetups.each do |meetup| %>
+  <li><%= "#{meetup.meetup.name}" %></a></li>
+  <% end %>
+</ul>
+
+<p>All Meetups: </p>
 <ul>
 <% @meetups.each do |meetup| %>
   <li><a href = <%= "/meetup/#{meetup.id}" %> ><%= "#{meetup.name}: #{meetup.description}" %></a></li>

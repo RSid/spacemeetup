@@ -27,8 +27,10 @@ ActiveRecord::Schema.define(version: 20140609191811) do
     t.string "description", null: false
   end
 
-  create_table "usermeetups", force: true do |t|
+  create_table "user_meetups", force: true do |t|
     t.string   "meetupqs"
+    t.integer  "user_id"
+    t.integer  "meetup_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
