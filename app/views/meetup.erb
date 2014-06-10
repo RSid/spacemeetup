@@ -6,7 +6,10 @@
 <% if @events[0] != nil %>
   <% @events.each do |event| %>
     <ul>
+      <li>Next meeting:</li>
       <li><%= event.description %></li>
+      <li><%= event.date %></li>
+      <li><%= event.location %></li>
     </ul>
   <% end %>
 <% end %>
