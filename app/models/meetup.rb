@@ -2,11 +2,7 @@ class Meetup < ActiveRecord::Base
   has_many :usermeetup
   has_many :event
 
-  # def self.create(name,description)
-  #   @name = name
-  #   @description = description
-  # end
-
-
+  validates :name, presence: true, uniqueness: true
+  validates :description, presence: true, uniqueness: true
 
 end

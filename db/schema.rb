@@ -17,23 +17,29 @@ ActiveRecord::Schema.define(version: 20140609191811) do
   enable_extension "plpgsql"
 
   create_table "events", force: true do |t|
-    t.string "location",    null: false
-    t.string "date",        null: false
-    t.string "description", null: false
+    t.string   "location",    null: false
+    t.string   "date",        null: false
+    t.string   "description", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "meetups", force: true do |t|
-    t.string "name",        null: false
-    t.string "description", null: false
+    t.string   "name",        null: false
+    t.string   "description", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_meetups", force: true do |t|
     t.string   "meetupqs"
-    t.integer  "user_id"
-    t.integer  "meetup_id"
+    t.integer  "user_id",    null: false
+    t.integer  "meetup_id",  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_meetups", ["user_id", "meetup_id"], name: "index_user_meetups_on_user_id_and_meetup_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "provider",   null: false

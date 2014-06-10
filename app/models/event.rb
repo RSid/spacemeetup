@@ -1,6 +1,8 @@
 class Event < ActiveRecord::Base
-
-      belongs_to :meetup
+    validates :location, presence: true
+    validates :date, presence: true
+    validates :description, presence: true
+    belongs_to :meetup
 
 end
 

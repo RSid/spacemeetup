@@ -1,12 +1,11 @@
 class UserMeetup < ActiveRecord::Base
 
-      belongs_to :user
-      belongs_to :meetup
+  belongs_to :user
+  belongs_to :meetup
 
-      # def self.create(userid, meetupid)
-      #   @userid = userid
-      #   @meetupid = meetupid
-
-      # end
+  validates :user, presence: true
+  validates :meetup,
+    presence: true,
+    uniqueness: {scope: :user}
 
 end

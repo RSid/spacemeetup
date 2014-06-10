@@ -7,6 +7,7 @@ require 'pry'
 require_relative 'config/application'
 require_relative 'app/models/meetup'
 require_relative 'app/models/user'
+require_relative 'app/models/event'
 require_relative 'app/models/usermeetup'
 
 Dir['app/**/*.rb'].each { |file| require_relative file }
