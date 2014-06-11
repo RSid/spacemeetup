@@ -1,11 +1,13 @@
 <h1><%= @title %></h1>
 
-<p>My Meetups</p>
-<ul>
-  <% @my_meetups.sort.each do |meetup| %>
-  <li><%= "#{meetup.meetup.name}" %></a></li>
-  <% end %>
-</ul>
+<% if @my_meetups%>
+  <p>My Meetups</p>
+  <ul>
+    <% @my_meetups.sort.each do |meetup| %>
+    <li><a href = <%= "/meetup/#{meetup.meetup.id}" %> ><%= "#{meetup.meetup.name}" %></a></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <p>All Meetups: </p>
 <ul>

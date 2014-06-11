@@ -36,8 +36,11 @@ end
 
 get '/' do
   @meetups = Meetup.all.order(:name)
-  @my_meetups = UserMeetup.all
-  binding.pry
+  if signed_in?
+    @my_meetups = UserMeetup.find(session[:user_id])
+    #trying to find all UserMeetups where the user_id matches the session uid
+  end
+
 
   erb :index
 end
@@ -57,9 +60,11 @@ post '/' do
 end
 
 get '/meetup/:id' do
+
   @meetup = Meetup.find(params[:id])
-  @events = (@meetup.event).to_a
-  binding.pry
+  @events = @meetup.events
+  @users = @meetup.users
+
   erb :meetup
 end
 
