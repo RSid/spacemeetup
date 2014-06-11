@@ -64,7 +64,9 @@ get '/meetup/:id' do
   @meetup = Meetup.find(params[:id])
   @events = @meetup.events
   @users = @meetup.users
-  binding.pry
+  @comments = @meetup.comments
+
+
   erb :meetup
 end
 
@@ -108,6 +110,20 @@ post '/meetup/event/:meetup_id' do
   end
 
   redirect "/meetup/#{meetup_id}"
+
+end
+
+post '/meetup/comment/:meetup_id' do
+  usermeetup_id = UserMeetup.find_by(meetup_id: params[:meetup_id],user_id: session[:user_id]).id
+  comment = params["comment"]
+
+  if signed_in?
+    Comment.create(user_meetup_id: usermeetup_id, comment: comment)
+  else
+    authenticate!
+  end
+
+  redirect "/meetup/#{params[:meetup_id]}"
 
 end
 
