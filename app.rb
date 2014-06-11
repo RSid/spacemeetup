@@ -37,8 +37,8 @@ end
 get '/' do
   @meetups = Meetup.all.order(:name)
   if signed_in?
-    @my_meetups = UserMeetup.find(session[:user_id])
-    #trying to find all UserMeetups where the user_id matches the session uid
+    @my_meetups = User.find(session[:user_id]).meetups
+
   end
 
 
@@ -64,16 +64,29 @@ get '/meetup/:id' do
   @meetup = Meetup.find(params[:id])
   @events = @meetup.events
   @users = @meetup.users
-
+  binding.pry
   erb :meetup
 end
 
-post '/meetup/:id' do
+post '/meetup/join/:id' do
   meetup_id = params[:id]
 
   if signed_in?
     UserMeetup.create(user_id: session[:user_id], meetup_id: meetup_id)
     flash[:notice] = "You have successfully joined a meetup!"
+  else
+    authenticate!
+  end
+
+  redirect '/'
+end
+
+post '/meetup/leave/:id' do
+  meetup_id = params[:id]
+
+  if signed_in?
+    UserMeetup.destroy_all(user_id: session[:user_id], meetup_id: meetup_id)
+    flash[:notice] = "You have successfully left a meetup!"
   else
     authenticate!
   end

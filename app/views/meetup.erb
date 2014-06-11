@@ -14,8 +14,12 @@
   <% end %>
 <% end %>
 
-<form action = <%= "/meetup/#{@meetup.id}" %> method = 'post'>
+<form action = <%= "/meetup/join/#{@meetup.id}" %> method = 'post'>
   <input type = "submit" value = "Join">
+</form>
+
+<form action = <%= "/meetup/leave/#{@meetup.id}" %> method = 'post'>
+  <input type = "submit" value = "Leave">
 </form>
 
 
@@ -36,4 +40,13 @@
 
 
 <p>Members: </p>
+
+<% if @users[0] != nil %>
+  <% @users.each do |user| %>
+    <ul id="users">
+      <li><img src = <%= user.avatar_url %> /></li>
+      <li><%= user.username %></li>
+    </ul>
+  <% end %>
+<% end %>
 

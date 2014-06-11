@@ -38,3 +38,12 @@ a:visited {
   padding: 1em;
   background-color: #3B9089;
 }
+
+img {
+  width: 100px;
+  height: auto;
+}
+
+#users {
+  list-style: none;
+}
