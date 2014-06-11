@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20140611133958) do
 
   create_table "comments", force: true do |t|
     t.string   "comment",        null: false
+    t.string   "title"
     t.integer  "user_meetup_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"

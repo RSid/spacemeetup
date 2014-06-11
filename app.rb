@@ -64,7 +64,8 @@ get '/meetup/:id' do
   @meetup = Meetup.find(params[:id])
   @events = @meetup.events
   @users = @meetup.users
-  @comments = @meetup.comments
+  @comments = @meetup.comments.order(created_at: :desc)
+  #binding.pry
 
 
   erb :meetup
@@ -116,9 +117,10 @@ end
 post '/meetup/comment/:meetup_id' do
   usermeetup_id = UserMeetup.find_by(meetup_id: params[:meetup_id],user_id: session[:user_id]).id
   comment = params["comment"]
+  title = params["title"]
 
   if signed_in?
-    Comment.create(user_meetup_id: usermeetup_id, comment: comment)
+    Comment.create(user_meetup_id: usermeetup_id, comment: comment, title: title)
   else
     authenticate!
   end
